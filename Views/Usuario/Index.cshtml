@@ -1,0 +1,17 @@
+﻿@model Proyecto_Order2Go.Models.Comercio
+@{
+    ViewData["Title"] = "Seleccionar Comercio";
+}
+<h2 class="text-center">Seleccione un comercio</h2>
+<div class="row justify-content-center">
+        @foreach (Comercio comercio in ViewBag.Comercio)
+        {
+            <div class="card m-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@comercio.Nombre</h5>
+                    <p class="card-text">@comercio.Descripcion</p>
+                    <a asp-controller="Usuario" asp-action="MostrarProductos" asp-route-id="@comercio.IdComercio" class="btn btn-primary">Ver comidas</a>
+                </div>
+            </div>
+        }
+</div>

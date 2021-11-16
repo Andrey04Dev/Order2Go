@@ -1,0 +1,42 @@
+﻿@model Proyecto_Order2Go.Models.Comercio
+
+@{
+    ViewData["Title"] = "Agregar Comercio";
+}
+
+<h1 class="text-center">Agregar Comercio</h1>
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-4">
+        <form asp-action="AgregarComercios" id="frm_AgregarComercios" asp-controller="Modulos" class="border border-5 rounded p-2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <textarea asp-for="Descripcion"  class="form-control"></textarea>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label id="select_usuario" asp-for="IdUsuario" class="control-label"></label>
+                <select asp-for="IdUsuario" class="form-control" id="select_usuario">
+                    @foreach (Usuario i in ViewBag.Usuario)
+                    {
+                        <option value="@i.IdUsuario"> @i.Nombre @i.Apellidos</option>
+                    }
+                </select>
+                <span asp-validation-for="IdUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" value="Agregar Comercio" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

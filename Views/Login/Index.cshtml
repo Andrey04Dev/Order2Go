@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+@model Proyecto_Order2Go.Models.ViewModel.UsuarioVM
+<div class="row justify-content-center align-content-center">
+    <div class="col-md-4">
+        <form id="frm_login" class="border border-5 rounded p-2" asp-controller="Login" asp-action="Login">
+            <h2 class="text-center">Iniciar Sesión</h2>
+            <section class="form-group">
+                <label for="correo">Nombre:</label>
+                <input asp-for="Correo" id="correo" type="text" class="form-control" />
+                <span asp-validation-for="Correo" class="badge text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label for="contraseña">Contraseña:</label>
+                <input asp-for="Contraseña" id="contraseña" type="password" class="form-control" />
+                <span asp-validation-for="Contraseña" class="badge text-danger"></span>
+            </section>
+            <section class="form-group text-center">
+                <button type="submit" class="btn btn-outline-primary">Loguear</button>
+            </section>
+        </form>
+    </div>
+</div>

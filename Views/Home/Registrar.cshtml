@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Registrar";
+}
+@model Usuario
+<div class="row justify-content-center align-content-center">
+    <div class="col-md-4">
+        <form asp-action="Registro" class="border border-5 rounded p-2" id="frm_registrar" asp-controller="Home">
+            <h2 class="text-center"> Registrar Usuario</h2>
+            <section class="form-group">
+                <label for="name">Nombre:</label>
+                <input asp-for="Nombre" id="name" type="text" class="form-control" />
+                <span asp-validation-for="Nombre" class="badge text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label for="lastName">Apellidos:</label>
+                <input asp-for="Apellidos" id="lastName" type="text" class="form-control" />
+                <span asp-validation-for="Apellidos" class="badge text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label for="correo">Correo:</label>
+                <input asp-for="Correo" id="correo" type="email" class="form-control" />
+                <span asp-validation-for="Correo" class="badge text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label for="password">Contraseña:</label>
+                <input asp-for="Contraseña" id="password" type="password" class="form-control" />
+                <span asp-validation-for="Contraseña" class="badge text-danger"></span>
+            </section>
+            <section class="form-group text-center">
+                <button type="submit" class="btn btn-outline-primary">Registrar Usuario</button>
+            </section>
+        </form>
+    </div>
+</div>
