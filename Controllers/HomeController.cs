@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Order2Go.Controllers
 {
-    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,9 +23,11 @@ namespace Proyecto_Order2Go.Controllers
             _logger = logger;
             ctx = _ctx;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            ViewBag.Comercio = await ctx.Comercio.ToListAsync();
+            Comercio comercio = new Comercio();
+            return View(comercio);
         }
 
         //AllowAnonymous permite que cualquier persona ingrese a esa página
@@ -68,12 +69,12 @@ namespace Proyecto_Order2Go.Controllers
                     var hash = HashHelper.Hash(Usuario.Contraseña);
                     Usuario.Contraseña = hash.Password;
                     Usuario.Salt = hash.Salt;
-                    Usuario.Roles.Add(new UsuarioRol() { IdUsuario = Usuario.IdUsuario, IdRol = 3});
+                    Usuario.IdRole = 3;
                     ctx.Usuario.Add(Usuario);
                     await ctx.SaveChangesAsync();
                     Usuario.Contraseña = "";
                     Usuario.Salt = "";
-                    return Ok();
+                    return Ok(Usuario);
                 }
             }
         }

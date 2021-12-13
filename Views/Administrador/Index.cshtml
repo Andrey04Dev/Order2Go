@@ -1,0 +1,19 @@
+﻿@using Proyecto_Order2Go.Helpers
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="row justify-content-center align-items-center">
+    <div class="col-12 text-center">
+        @if (User.Identity.IsAuthenticated)
+        {
+
+            <h2>Bienvenido @SessionHelpers.GetName(User)</h2>
+            <p>Entraste en el role @SessionHelpers.GetRole(User) en cual tiene un privilegios como:</p>
+            <ul>
+                <li class="nav-item">Agregar un comercio</li>
+                <li class="nav-item">Agregar un operador</li>
+            </ul>
+
+        }
+    </div>
+</div>

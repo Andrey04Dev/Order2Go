@@ -1,0 +1,33 @@
+﻿@model Proyecto_Order2Go.Models.Producto
+@{
+    ViewData["Title"] = "Cargar Productos";
+
+}
+@foreach (Comercio comercio in ViewBag.Comercio)
+{
+    <h2 class="text-center"> Productos agregados del Comercio @comercio</h2>
+}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th> Producto</th>
+            <th> Cantidad</th>
+            <th> Descripción</th>
+            <th> Precio</th>
+            <th colspan="2">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Producto producto in ViewBag.Productos)
+        {
+            <tr>
+                <td>@producto.Nombre</td>
+                <td>@producto.Cantidad</td>
+                <td>@producto.Descripcion</td>
+                <td>@producto.Precio</td>
+                <td><a asp-action="Modificar" asp-controller="Operador" asp-route-id="@producto.IdProducto">Modificar</a></td>
+                <td><a asp-action="Eliminar" asp-controller="Operador" asp-route-id="@producto.IdProducto">Eliminar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+﻿@model Tuple<Compras, Producto>
+@using Proyecto_Order2Go.Helpers
+@{
+    ViewData["Title"] = "Agregar Producto";
+}
+<h2 class="text-center">Agregar Productos al Carrito</h2>
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-4">
+        <form asp-action="AgregarProductosCarrito" asp-controller="Usuario" id="frm_AgregarProductoCarrito" class="border border-light bg-light rounded-lg p-4">
+            <input asp-for="Item1.IdCompra" id="Item1.IdCompra" type="hidden" />
+            <input asp-for="Item1.IdUsuario" value="@SessionHelpers.GetNameIdentifier(User)" id="Item1.IdUsuario" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Item1.Fecha" class="control-label"></label>
+                <input asp-for="Item1.Fecha" type="date" value="@DateTime.Now.ToString("dd/MM/yyyy")" class="form-control" />
+                <span asp-validation-for="Item1.Fecha" class="text-danger"></span>
+            </div>
+            @foreach (Producto p in ViewBag.Producto)
+            {
+                <input asp-for="Item1.IdProducto" type="hidden" value="@p.IdProducto" />
+                <input asp-for="Item1.IdComercio" type="hidden" value="@p.IdComercio" />
+                <div class="form-group">
+                    <label asp-for="@p.Nombre" class="control-label"></label>
+                    <input asp-for="@p.Nombre" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item1.Precio" class="control-label"></label>
+                    <input asp-for="Item1.Precio" value="@p.Precio" class="form-control" readonly />
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="Item1.CantidadProductos" class="control-label"></label>
+                <input asp-for="Item1.CantidadProductos" class="form-control" />
+                <span asp-validation-for="Item1.CantidadProductos" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" value="Agregar Producto Carrito" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

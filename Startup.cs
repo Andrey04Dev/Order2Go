@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Proyecto_Order2Go.Helpers;
 
 namespace Proyecto_Order2Go
 {
@@ -32,8 +33,13 @@ namespace Proyecto_Order2Go
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddControllersWithViews();
             services.AddDbContext<CodeStackCTX>(options => options.UseSqlServer(Configuration.GetConnectionString("CodeStackCTX")));
+            services.AddControllersWithViews()
+                .AddJsonOptions(o => {
+                    o.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                    o.JsonSerializerOptions.PropertyNamingPolicy = null;
+                });
             //Autentificación por medio de cookies, debe de poner el abajo el autentificación abajo con App
             services.AddAuthentication(options =>
             {
@@ -48,6 +54,10 @@ namespace Proyecto_Order2Go
                     context.Response.Redirect("/Login");
                     return Task.CompletedTask;
                 };
+            });
+            services.AddMvc().AddRazorPagesOptions(o =>
+            {
+                o.Conventions.AddPageRoute("/Administrador/Index", "");
             });
         }
 

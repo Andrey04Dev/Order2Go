@@ -40,7 +40,8 @@ namespace Proyecto_Order2Go.Controllers
             }
             else
             {
-                var result = await ctx.Usuario.Include("Roles.Rol").Where(x => x.Correo == Usuario.Correo).SingleOrDefaultAsync();
+                var result = await ctx.Usuario.Where(x => x.Correo == Usuario.Correo).SingleOrDefaultAsync();
+                ViewBag.IdUSuario = result.IdUsuario;
                 if (result == null)
                 {
                     return NotFound(new JObject()
@@ -54,7 +55,7 @@ namespace Proyecto_Order2Go.Controllers
                     if (HashHelper.CheckHash(Usuario.Contraseña, result.Contraseña, result.Salt))
                     {
                         //Validamos si tiene rol
-                        if (result.Roles.Count == 0)
+                        if (result.IdRole == 0)
                         {
                             return NotFound(new JObject()
                             {
@@ -62,23 +63,32 @@ namespace Proyecto_Order2Go.Controllers
                                 {"Message","No tiene acceso al sistema." }
                             });
                         }
+                        var resultRoles = await ctx.Roles.Where(x => x.IdRole == result.IdRole).SingleOrDefaultAsync();
                         var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
                         identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, result.IdUsuario.ToString()));
                         identity.AddClaim(new Claim(ClaimTypes.Name, result.Nombre));
                         identity.AddClaim(new Claim(ClaimTypes.Email, result.Correo));
                         identity.AddClaim(new Claim("Dato", "Valor"));
 
-                        foreach (var Rol in result.Roles)
-                        {
-                            identity.AddClaim(new Claim(ClaimTypes.Role, Rol.Rol.Descripción));
-                        }
+                        identity.AddClaim(new Claim(ClaimTypes.Role, resultRoles.Role));
 
                         var principal = new ClaimsPrincipal(identity);
                         /*Especificaciones que se hace la autentificacion por cookie, El dia de expiración es de 1 día,
                          si no ha pasado el tiempo de expiración, se loguea solo.*/
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
                             new AuthenticationProperties { ExpiresUtc = DateTime.Now.AddHours(1), IsPersistent = true });
-                        return Ok(result);
+                        if (principal.IsInRole("Administrador"))
+                        {
+                            return RedirectToAction("Index", "Administrador");
+                        }
+                        else if (principal.IsInRole("Operador"))
+                        {
+                            return RedirectToAction("Index", "Operador");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Usuario");
+                        }
                     }
                     else
                     {

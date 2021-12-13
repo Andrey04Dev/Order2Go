@@ -5,7 +5,7 @@
 <h1 class="text-center">Agregar Operador</h1>
 <div class="row justify-content-center align-items-center">
     <div class="col-md-4">
-        <form id="frm_agregarOperador" asp-action="AgregarOperadores" class="border border-5 rounded p-2"asp-controller="Modulos">
+        <form id="frm_agregarOperador" asp-action="AgregarOperadores" class="border border-light bg-light rounded-lg p-4" asp-controller="Administrador">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
@@ -24,11 +24,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Contraseña" class="control-label"></label>
-                <input asp-for="Contraseña" class="form-control" />
+                <input asp-for="Contraseña" type="password" class="form-control" />
                 <span asp-validation-for="Contraseña" class="text-danger"></span>
             </div>
+            @foreach (Roles roles in ViewBag.Roles)
+            {
+                <input asp-for="IdRole" type="hidden" value="@roles.IdRole" placeholder="@roles.Role" class="form-control" readonly />
+            }
             <div class="form-group text-center">
-                <input type="submit" value="Agregar Operador" class="btn btn-primary" />
+                <input type="submit" value="Agregar Operador" class="btn btn-primary bg-primary" />
             </div>
         </form>
     </div>

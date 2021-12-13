@@ -10,8 +10,8 @@ namespace Proyecto_Order2Go.Models
     public partial class UsuarioRol
     {
         public int IdUsuario { get; set; }
-        public int IdRol { get; set; }
-        [ForeignKey("IdRol")]
+        public int IdRole { get; set; }
+        [ForeignKey("IdRole")]
         public virtual Roles Rol { get; set; }
     }
 }

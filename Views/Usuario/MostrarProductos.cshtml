@@ -6,9 +6,10 @@
 <div class="row">
     @foreach ( Producto producto in ViewBag.Producto)
     {
-        <div class="card m-3 text-center" style="width: 18rem;">
+        <div class="card m-3 text-center" style="width: 21.5rem;">
             <div class="card-body">
-                <h5 class="card-title">@producto.NombreProducto</h5>
+                <img class="card-img-top h-50" src="data:@producto.Fototipo;base64,@(Convert.ToBase64String(producto.Foto))" alt="@producto.Foto" />
+                <h5 class="card-title">@producto.Nombre</h5>
                 <p class="card-text">@producto.Descripcion</p>
                 <div class="row justify-content-center align-items-center">
                     <p class="font-weight-bold m-2">Cantidad:</p><p class="m-2">@producto.Cantidad</p>
@@ -17,8 +18,8 @@
                     <p class="font-weight-bold m-2">Precio:</p><p class="m-2">@producto.Precio</p>
                 </div>
                 <div class="row justify-content-center">
-                    <a asp-controller="Usuario" asp-action="Index" class="btn btn-primary m-2">Regresar</a>
-                    <a asp-controller="Usuario" asp-action="#" class="btn btn-primary m-2">Comprar</a>
+                    <a asp-controller="Usuario" asp-action="Index" class="btn btn-danger m-2">Regresar</a>
+                    <a asp-controller="Usuario" asp-action="AgregarProducto" asp-route-id="@producto.IdProducto" class="btn btn-primary m-2">Comprar</a>
                 </div>
             </div>
         </div>

@@ -10,8 +10,8 @@ namespace Proyecto_Order2Go.Models
     [Table("tbl_roles")]
     public partial class Roles
     {
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.None), Column("Id")]
+        [Key]
         public int IdRole { get; set; }
-        public string  Descripción { get; set; }
+        public string  Role { get; set; }
     }
 }

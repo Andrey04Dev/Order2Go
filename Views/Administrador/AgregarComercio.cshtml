@@ -7,7 +7,7 @@
 <h1 class="text-center">Agregar Comercio</h1>
 <div class="row justify-content-center align-items-center">
     <div class="col-md-4">
-        <form asp-action="AgregarComercios" id="frm_AgregarComercios" asp-controller="Modulos" class="border border-5 rounded p-2">
+        <form asp-action="AgregarComercios" id="frm_AgregarComercios" asp-controller="Administrador" class="border border-light bg-light rounded-lg p-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
@@ -30,7 +30,7 @@
                 <span asp-validation-for="IdUsuario" class="text-danger"></span>
             </div>
             <div class="form-group text-center">
-                <input type="submit" value="Agregar Comercio" class="btn btn-primary" />
+                <input type="submit" value="Agregar Comercio" class="btn btn-primary bg-primary" />
             </div>
         </form>
     </div>

@@ -22,7 +22,7 @@ $(document).on('submit', '#frm_registrar', function (e) {
         }
     })
 })
-$(document).on('submit', '#frm_login', function (e) {
+/*$(document).on('submit', '#frm_login', function (e) {
     e.preventDefault();
     $.ajax({
         beforeSend: function () {
@@ -32,8 +32,9 @@ $(document).on('submit', '#frm_login', function (e) {
         url: this.action,
         data: $(this).serialize(),
         success: function (data) {
+            console.log(data)
             alert("Bienvenido " + data.nombre);
-            window.location = "/Home";
+           // window.location = "/Home";
         },
         error: function (xhr, status) {
             alert(xhr.responseJSON.Message);
@@ -42,7 +43,7 @@ $(document).on('submit', '#frm_login', function (e) {
             $("#frm_login button[type=submit]").prop("disabled", false);
         }
     })
-})
+})*/
 $(document).on('submit', '#frm_agregarOperador', function (e) {
     e.preventDefault();
     $.ajax({
@@ -53,7 +54,7 @@ $(document).on('submit', '#frm_agregarOperador', function (e) {
         url: this.action,
         data: $(this).serialize(),
         success: function (data) {
-            alert("El operador " + data.nombre +"ha sido registrado");
+            alert("El operador " + data.nombre + "ha sido registrado");
         },
         error: function (xhr, status) {
             alert(xhr.responseJSON.Message);
@@ -84,45 +85,32 @@ $(document).on('submit', '#frm_AgregarComercios', function (e) {
         }
     })
 })
-$(document).on('submit', '#frm_AgregarProductos', function (e) {
+/*$(document).on('submit', '#frm_AgregarProductoCarrito', function (e) {
     e.preventDefault();
+    var IdCompra = 0;
     $.ajax({
         beforeSend: function () {
-            $("#frm_AgregarProductos button[type=submit]").prop("disabled", true);
+            $("#frm_AgregarProductoCarrito button[type=submit]").prop("disabled", true);
         },
         type: this.method,
         url: this.action,
         data: $(this).serialize(),
         success: function (data) {
-            alert("Se ha agregado el producto correctamente");
-            console.log(data);
+            alert("Se ha agregado al carrito correctamente.");
+            console.log(data.resultado);
+            window.location("/Usuario/Index")
         },
         error: function (xhr, status) {
             alert("Algo salio mal");
         },
         complete: function () {
-            $("#frm_AgregarProductos button[type=submit]").prop("disabled", false);
+            $("#frm_AgregarProductoCarrito button[type=submit]").prop("disabled", false);
         }
     })
-})
-$(document).on('submit', '#frm_Modificar', function (e) {
-    e.preventDefault();
-    $.ajax({
-        beforeSend: function () {
-            $("#frm_Modificar button[type=submit]").prop("disabled", true);
-        },
-        type: this.method,
-        url: this.action,
-        data: $(this).serialize(),
-        success: function (data) {
-            alert("Se ha actualizado correctamente.");
-            console.log(data);
-        },
-        error: function (xhr, status) {
-            alert("Algo salio mal");
-        },
-        complete: function () {
-            $("#frm_Modificar button[type=submit]").prop("disabled", false);
-        }
-    })
-})
+})*/
+function ResetFields() {
+    $("#nombre").val("")
+    $("#cantidad").val("")
+    $("#descripcion").val("")
+    $("#precio").val("")
+}
